@@ -1,0 +1,478 @@
+Libraries & Dependencies
+========================
+[o] afflib
+	git clone git://github.com/sshock/AFFLIBv3 afflib && cd afflib 
+	./configure
+	make && make install 
+	
+[o] Boost
+	wget https://sourceforge.net/projects/boost/files/boost/1.63.0/boost_1_63_0.tar.bz2/download -O boost.tar.bz2 
+	tar -xf boost.tar.bz2
+	cd boost_1_63_0/
+	./bootstrap
+	./b2
+	
+[o] GeoIP
+	git clone git://github.com/maxmind/geoip-api-c && cd geoip-api-c
+	./bootstrap
+    ./configure
+    make
+    make install
+
+[o] json-c	
+	git clone git://github.com/json-c/json-c && json-c
+    ./autogen.sh
+    ./configure
+    make
+    make install
+
+[o] lame
+	wget https://sourceforge.net/projects/lame/files/lame/3.99/lame-3.99.5.tar.gz/download -O lame-3.99.5.tar.gz
+	tar -xf lame-3.99.5.tar.gz
+	cd lame-3.99.5
+	./configure 
+	make && make install
+	
+[o] libevt
+	git clone git://github.com/libyal/libevt && cd libevt
+	./synclibs.h
+	./autogen.sh
+	./configure
+	make && make install 
+
+[o] libewf
+	git clone git://github.com/libyal/libewf && cd libewf 
+	./synclibs.sh
+	./autogen.sh
+	./configure
+	# Patch ewftools/ewftools_libsmraw.h, uncomment #include <libsmraw_metadata.h>
+	make make install 
+
+[o] liblnk
+	git clone git://github.com/libyal/liblnk && cd liblnk
+	./synclibs.h
+	./autogen.sh
+	./configure 
+	make && make install
+
+[o] libpcap
+	git clone git://github.com/the-tcpdump-group/libpcap && cd libpcap
+	./configure
+	make && make install
+	
+libnss3 
+	mkdir build 
+
+	wget https://ftp.mozilla.org/pub/security/nss/releases/NSS_3_29_RTM/src/nss-3.29.tar.gz
+	tar -xf nss-3.29.tar.gz
+	mv nss*/nss build/nss 
+	
+	wget 	https://ftp.mozilla.org/pub/nspr/releases/v4.13.1/src/nspr-4.13.1.tar.gz
+	tar -xf nspr-4.13.1.tar.gz
+	mv nspr* build/nspr
+	
+	cd build/nss
+	make nss_build_all
+
+[o] libvmdk
+	git clone git://github.com/libyal/libvmdk && cd libvmdk
+	./synclibs.sh
+	./autogen.sh
+	./configure
+	make && make install
+
+[o] mysqlclient
+	wget https://dev.mysql.com/get/Downloads/Connector-C/mysql-connector-c-6.1.9-src.tar.gz
+	tar -xf mysql-connector-c-6.1.9-src.tar.gz
+	cd mysql-connector-c-6.1.9-src
+	mkdir build && cd build
+	make 
+	&& make install
+	ln -s /usr/local/mysql/include /usr/local/include/mysql
+	ln -s /usr/local/mysql/lib/libmysqlclient.a /usr/lib64/libmysqlclient.a
+	ln -s /usr/local/mysql/lib/libmysqlclient.so.18.4. /usr/lib64/libmysqlclient.so.18
+	
+	sed 's/libs="$libs -l/libs="$libs -lmysqlclient' /usr/local/mysql/bin/mysql_config > /tmp/mysql_config
+	mv /tmp/mysql_config /usr/local/mysql/bin/mysql_config
+	ln -s /usr/local/mysql/bin/mysql_config /usr/local/bin/
+
+[o] nDPI
+	git clone git://github.com/ntop/nDPI && cd nDPI
+	./autogen.sh
+    ./configure
+    make
+    make install
+
+[o] Qemu	http://wiki.qemu.org/
+	git clone git://git.qemu-project.org/qemu.git
+	cd qemu
+	git submodule update --init dtc
+	mkdir build
+	../configure --sysconfdir=/etc  \
+		--audio-drv-list=alsa       \
+		--with-sdlabi=2.0           \
+		--enable-debug              \
+		--enable-modules            \
+		--docdir=/usr/share/doc/qemu/git
+	make -j2
+	make install
+
+[o] sox	
+	git clone https://git.code.sf.net/p/sox/code sox-code && cd sox-code
+	autoreconf -i 
+	./configure 
+	make -s &&	make install
+	
+v8
+	git clone git://github.com/v8/v8
+
+pyv8
+	git clone git://github.com/buffer/pyv8
+    cd pyv8
+    python setup.py build
+    sudo python setup.py install
+	
+sctest
+	git clone git://github.com/buffer/libemu
+    autoreconf -v -i
+    ./configure --prefix=/opt/libemu
+    make install
+	pip install pylibemu
+
+[o] ant
+	wget http://apache.repo.unpas.ac.id//ant/binaries/apache-ant-1.10.1-bin.zip
+	unzip apache-ant-1.10.1-bin.zip
+	cd apache-ant-1.10.1
+	
+
+
+============================================
+Disk Imaging & Hashing
+============================================
+[P] Cyclone
+
+[o] ESXimager
+	wget http://search.cpan.org/CPAN/authors/id/S/SR/SREZIC/Tk-804.033.tar.gz
+	
+	git clone https://github.com/Gerodd/ESXimager && cd ESXimager
+	cp esximager.pl /usr/local/bin/esximager
+	chmod +x /usr/local/bin/esximager
+
+[G] Guymager
+
+[o] xmount
+	git clone https://code.pinguin.lu/diffusion/XMOUNT/xmount.git && cd xmount 
+	cd trunk/
+	mkdir build && cd build
+	cmake DCMAKE_BUILD_TYPE=Release ..
+	make
+	make install 
+	
+[o] EwfMount
+	[see libewf]
+	
+[o] EqfAcquire
+	[see libewf]
+
+[o]	VmdkMount
+	[see libvmdk]
+
+[x] Dhash2
+	gem install dhash
+	
+	:: 
+
+[o] Ssdeep
+	wget http://sourceforge.net/projects/ssdeep/files/ssdeep-2.13/ssdeep-2.13.tar.gz/download -O ssdeep-2.13.tar.gz 
+	tar -xf ssdeep-2.13.tar.gz && cd ssdeep-2.13
+	./configure 
+	make 
+	make install 
+	
+[o] hashdb
+	git clone git://github.com/NPS-DEEP/hashdb && cd hashdb
+	./bootstrap.sh
+	./configure
+	make
+	make install
+
+============================================
+Data Carving & Extractions
+============================================
+[x] Dumpy
+
+[o] foremost
+	wget http://foremost.sourceforge.net/pkg/foremost-1.5.7.tar.gz
+	cd foremost-1.5.7
+	make
+	make install
+
+[x] Scalpel
+	pip install numpy
+	pip install scalpel
+	
+	:: gagal build.
+	
+[I] Photorec
+
+[I] testdisk
+
+[o] Bulk Extractor
+	git clone git://github.com/simsong/bulk_extractor && cd bulk_extractor
+	sh bootstrap.sh 
+	./configure
+	make
+	make install 
+
+============================================
+File Analysis
+============================================
+[-] Catfish File Search
+
+[o] radare2
+	git clone git://github.com/radare/radare2 && cd radare2 
+	HARDEN=1 sys/install.sh
+
+[o] LnkInfo
+	[see liblnk]
+
+[x] Log2Timeline
+	git clone git://github.com/log2timeline/plaso
+
+[o] Sqlite
+	wget http://www.sqlite.org/2017/sqlite-autoconf-3170000.tar.gz
+	tar -xf sqlite-autoconf-3170000.tar.gz
+	cd sqlite-autoconf-3170000
+	./configure
+	make && make install
+
+[x] Cuckoo
+	[see qemu]
+
+[o] TrID
+	wget http://mark0.net/download/trid_linux_64.zip
+	wget http://mark0.net/download/tridupdate.zip
+	wget http://mark0.net/download/triddefs.zip
+	
+	unzip trid_linux_64.zip && mv trid /usr/local/bin && chmod +x /usr/local/bin/trid
+	rm readme.txt
+	unzip tridupdate.zip && mv tridupdate.py /usr/local/bin/ && chmod +x /usr/local/bin/tridupdate.py
+	unzip triddefs.zip && mv triddefs.trd /usr/local/bin/
+	
+[o] Undbx
+	wget https://sourceforge.net/projects/undbx/files/undbx-0.21.tar.gz/download -O undbx.tar.gz
+	tar -xf undbx.tar.gz
+	cd undbx*
+	./configure 
+	make && make install
+	
+[o] Vinetto
+	wget https://sourceforge.net/projects/vinetto/files/vinetto/vinetto-beta-0.07/vinetto-beta-0.07.tar.gz/download -O vinetto.tar.gz
+	tar -xf vinetto.tar.gz
+	cd vinetto.tar.gz
+	python setup.py build
+	python setup.py install
+	
+[o] Fenrir
+	git clone git://github.com/Neo23x0/Fenrir && cd Fenrir
+	cp fenrir.sh /usr/local/bin/fenrir
+	chmod +x /usr/local/bin/fenrir
+	
+[o] Fileintel
+	git clone git://github.com/keithjjones/fileintel && cd fileintel
+	pip install -r requirements.txt
+	# Dont forget to create a configuration file
+
+[x] DumpZilla   
+
+[?] Hindsight
+	git clone git://github.com/obsidianforensics/hindsight && cd hindsight
+
+============================================
+Antimalware
+============================================
+[x] chkrootkit
+
+[o] rkhunter
+	wget https://sourceforge.net/projects/rkhunter/files/rkhunter/1.4.2/rkhunter-1.4.2.tar.gz/download -O rkhunter.tar.gz
+	tar -xf rkhunter.tar.gz
+	cd rkhunter*
+	sh installer.sh --layout /usr/local --install
+	rkhunter --update
+	rkhunter --propupd
+	
+============================================
+Document Metadata Extractions
+============================================
+[x] Pdfparser
+[o] Peepdf
+	git clone git://github.com/jesparza/peepdf
+	
+[o] exiftool
+	wget http://www.sno.phy.queensu.ca/~phil/exiftool/Image-ExifTool-10.42.tar.gz
+	tar -xf Image-ExifTool*
+	cd Image-ExifTool*
+	perl Makefile.PL
+	make install
+
+[o] jhead
+	wget http://www.sentex.net/~mwandel/jhead/jhead-3.00.tar.gz
+	tar -xf jhead-3.00.tar.gz
+	cd jhead-3.00
+	make && make install
+	
+
+============================================
+Memory Analysis
+============================================
+[o] Volatility
+	git clone git://github.com/volatilityfoundation/volatility && cd volatility
+	python setup.py build
+	python setup.py install 
+	
+[o] VolatilityBot
+	git clone git://github.com/mkorman90/VolatilityBot && cd VolatilityBot
+	pip install -r requirements.txt
+	
+[o] Rekall
+	virtualenv rekall 
+	source rekall/bin/activate
+	pip install rekall 
+
+============================================
+Network Forensics
+============================================
+[x] CapAnalysis
+[-] Wireshark
+[x] Xplico
+	git clone git://github.com/xplico/xplico
+	
+	[see libpcap]
+	[see sqlite]
+	[see sox]
+	[see LAME]
+	[see nDPI]
+	[see GeoIP]
+	[see json-c]
+	[see mysql client dev]
+	
+	cd xplico
+	make && make install
+
+============================================
+Mobile Forensics
+============================================
+[x] adb
+[x] Fastboot 
+	wget https://dl.google.com/android/repository/tools_r25.2.3-linux.zip
+	
+[o] apktool
+	wget https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool -O /usr/local/bin/apktool
+	chmod +x /usr/local/bin/apktool
+	wget https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.2.2.jar -O /usr/local/bin/apktool.jar
+	chmod +x /usr/local/bin/apktool.jar
+	
+[G] BitPim
+	svn co https://bitpim.svn.sourceforge.net/svnroot/bitpim/trunk/bitpim
+	       
+[x] iDevice Backup 2
+
+[x] IpdDump       
+	wget https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/ipddump/IpdDump%200.3%20RC4.jar
+	
+	:: memory usage langsung gede :v 
+
+============================================
+Log Analysis
+============================================
+[x] evtwalk
+[o] evtkit
+	wget https://raw.githubusercontent.com/yarox24/evtkit/master/evtkit.py -o /usr/local/bin/evtkit
+	chmod +x /usr/local/bin/evtkit
+
+============================================
+Password Recovery
+============================================
+[o] chntpw      [all in chntpw package]
+[o] reged       [all in chntpw package]
+[o] sampasswd   [all in chntpw package]
+[o] samusergrp  [all in chntpw package]
+	wget http://pogostick.net/~pnh/ntpasswd/chntpw-source-140201.zip
+	unzip chntpw-source-140201.zip
+	cd chntpw-140201
+	# remove "force 32-bit" in makefile
+	make 
+	mv chntpw cpnt reged sampasswd samusrgrp /usr/local/bin/
+
+[o] Cmospwd
+	wget http://www.cgsecurity.org/cmospwd-5.0.tar.bz2
+	tar -xf cmospwd-5.0.tar.bz2
+	cd cmospwd-5.0
+	cd src
+	rm cmospwd
+	make && mv cmospwd /usr/local/bin/
+
+[o] Cachedump   [all in creddump package]
+[o] lsadump     [all in creddump package]
+[o] pwdump      [all in creddump package]
+	git clone git://github.com/moyix/creddump
+	mv creddump /opt/
+	for pkg in {cache,lsa,pw}dump; do ln -s /opt/creddump/${pkg}.py /usr/local/bin/${pkg}; chmod +x /usr/local/bin/${pkg}; done
+
+[x] Cupp 
+	git clone git://github.com/Mebus/cupp
+	pip install ftplib ConfigParser csv
+	mv cupp.py cupp3.py /usr/local/bin/
+	
+	:: pip return some error message (Could not find a version that satisfies the requirement 'package')
+	
+[o] Fcrackzip
+	wget http://oldhome.schmorp.de/marc/data/fcrackzip-1.0.tar.gz
+	tar -xf fcrackzip-1.0.tar.gz
+	cd fcrackzip-1.0
+	make && make install
+
+[o] John The Ripper
+	git clone git://github.com/magnumripper/JohnTheRipper && cd JohnTheRipper
+	cd src
+	./configure && make -s clean && make -sj4
+	mv ../run/* /usr/local/bin/
+	
+[o] Pdfcrack
+	wget https://sourceforge.net/projects/pdfcrack/files/pdfcrack/pdfcrack-0.15/pdfcrack-0.15.tar.gz/download -O pdfcrack.tar.gz
+	cd pdfcrack*
+	make && mv pdfcrack /usr/local/bin/
+
+[o] Samdump2	
+	wget https://sourceforge.net/projects/ophcrack/files/samdump2/3.0.0/samdump2-3.0.0.tar.bz2/download -o sampdump2.tar.bz2
+	cd samdump2*
+	make 
+	[if failed, do this: gcc -o samdump2 hive.o list.o bkhive.o samdump2.o main.o dumpsam.o -Wall  -lssl -lcrypto]
+	mv samdump2 /usr/local/bin/
+
+============================================
+Suites
+============================================
+[x] Autopsy               
+	:: The Sleuthkit GUI
+
+[o] The SleuthKit 
+	git clone git://github.com/sleuthkit/sleuthkit && cd sleuthkit
+	./bootstrap
+	./configure
+	sed -e 's/libewf_handle_read_random/libewf_handle_read_buffer_at_offset/g' ewf.c > ewf.bak.c
+	mv ewf.c{,.bak}
+	me ewf{.bak,}.c
+	make && make install
+
+[x] DFF
+	git clone git://github.com/arxsys/dff && cd dff
+	git submodule init
+	git submodule update
+	mkdir build
+	cd build
+	cmake ..
+	make -j`getconf _NPROCESSORS_ONLN`	
+	
+	:: the company has closed in 2015
+	:: SWIG not found
